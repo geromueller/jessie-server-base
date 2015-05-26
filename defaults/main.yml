@@ -1,0 +1,3 @@
+---
+# apt mirror
+jessie_server_base_mirror: http://ftp.de.debian.org/debian

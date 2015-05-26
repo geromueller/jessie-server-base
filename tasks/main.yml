@@ -1,0 +1,42 @@
+---
+
+# -----------------------------------------------------------------------------
+# setup apt sources
+# -----------------------------------------------------------------------------
+
+- name: set apt sources
+  register: apt_source
+  template: src=apt/sources.list.j2 dest=/etc/apt/sources.list owner=root group=root
+
+- name: update apt
+  action: apt update_cache=yes
+  when: apt_source|changed
+
+# -----------------------------------------------------------------------------
+# install firewall and setup ssh
+# -----------------------------------------------------------------------------
+
+- name: install security measures and services
+  apt: pkg={{item}} state=installed
+  with_items:
+    - unattended-upgrades
+    - ntp
+
+# -----------------------------------------------------------------------------
+# install common tools
+# -----------------------------------------------------------------------------
+
+- name: install tools
+  apt: pkg={{item}} state=installed
+  with_items:
+    - htop
+    - ne
+    - iptraf
+    - sysstat
+    - rsync
+    - iperf
+    - hdparm
+    - dnsutils
+    - screen
+    - acl
+    - tree
