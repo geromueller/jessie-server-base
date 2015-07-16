@@ -1,3 +1,9 @@
 ---
 # apt mirror
 jessie_server_base_mirror: http://ftp.de.debian.org/debian
+
+# set i/o scheduler. use:
+# - "noop" for virtual maschines
+# - "cfg" for multi users systems (supports priorities)
+# - "deadline" for servers
+jessie_server_base_scheduler: deadline
