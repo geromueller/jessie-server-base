@@ -16,10 +16,14 @@
 # set best scheduler
 # -----------------------------------------------------------------------------
 
+- stat: path=/etc/default/grub
+  register: grub_config
+
 - name: set io scheduler
   lineinfile: dest=/etc/default/grub regexp='^GRUB_CMDLINE_LINUX=' line='GRUB_CMDLINE_LINUX="elevator={{jessie_server_base_scheduler}}"' state=present backrefs=yes
   notify:
     - update-grub
+  when: grub_config.stat.exists == True
 
 
 # -----------------------------------------------------------------------------
